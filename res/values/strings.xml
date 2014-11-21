@@ -2,5 +2,25 @@
 <resources>
 
     <string name="app_name">I杂志</string>
+    <string name="app_first">推荐</string>
+    <string name="detail">详情</string>
+    
+    <string name="hover">hover</string>
+    <string name="description">description</string>
+    <string name="a">a</string>
+    <string name="href">href</string>
+    <string name="src">src</string>
+    <string name="title">title</string>
+    <string name="img">img</string>
+    <string name="Issue">Issue</string>
+    <string name="OnLine">OnLine</string>
+    <string name="inline">list-inline</string>
+    <string name="li">li</string>
+    <string name="page">page-title</string>
+    <string name="outer">outer_page</string>
+    <string name="h6">h6</string>
+    <string name="td">td</string>
+    <string name="table">table</string>
+    <string name="getDataFail">解析数据失败!</string>
 
 </resources>
