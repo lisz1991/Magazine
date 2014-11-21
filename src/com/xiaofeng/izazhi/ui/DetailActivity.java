@@ -49,15 +49,15 @@ public class DetailActivity extends BaseActivity implements OnClickListener {
 		detailUpdate = (TextView) findViewById(R.id.activity_ditail_book_update);
 		detailTotal = (TextView) findViewById(R.id.activity_ditail_book_total);
 		detailPrice = (TextView) findViewById(R.id.activity_ditail_book_price);
-		getActionBar().setTitle("详情");
+		getActionBar().setTitle(getString(R.string.detail));
 	}
 
 	@Override
 	public void initData() {
 		Intent intent = getIntent();
 		zaZhi = (ZaZhi) intent.getSerializableExtra("ZaZhi");
-		if (null == zaZhi || null== zaZhi.urlImage || null== zaZhi.urlDetail) {
-			T.show(mContext, "解析数据失败!", Toast.LENGTH_LONG);
+		if (null == zaZhi || null == zaZhi.urlImage || null == zaZhi.urlDetail) {
+			T.show(mContext, R.string.getDataFail, Toast.LENGTH_LONG);
 			this.finish();
 		}
 		ImageLoader.getInstance().displayImage(zaZhi.urlImage, image);
@@ -78,21 +78,27 @@ public class DetailActivity extends BaseActivity implements OnClickListener {
 	}
 
 	public void getInfo(Document doc) {
-		Elements ths = doc.getElementsByClass("table");
-		String name = ths.get(0).getElementsByTag("td").get(1).text();
+		Elements ths = doc.getElementsByClass(getString(R.string.table));
+		String name = ths.get(0).getElementsByTag(getString(R.string.td))
+				.get(1).text();
 		detailName.setText(name);
 		getActionBar().setTitle(name);
-		String current = ths.get(0).getElementsByTag("td").get(3).text();
+		String current = ths.get(0).getElementsByTag(getString(R.string.td))
+				.get(3).text();
 		detailCurrent.setText(current);
-		String time = ths.get(0).getElementsByTag("td").get(5).text();
+		String time = ths.get(0).getElementsByTag(getString(R.string.td))
+				.get(5).text();
 		detailTime.setText(time);
-		String update = ths.get(1).getElementsByTag("td").get(1).text();
+		String update = ths.get(1).getElementsByTag(getString(R.string.td))
+				.get(1).text();
 		detailUpdate.setText(update);
-		String total = ths.get(1).getElementsByTag("td").get(7).text();
+		String total = ths.get(1).getElementsByTag(getString(R.string.td))
+				.get(7).text();
 		detailTotal.setText(total);
-		String price = ths.get(1).getElementsByTag("td").get(5).text();
+		String price = ths.get(1).getElementsByTag(getString(R.string.td))
+				.get(5).text();
 		detailPrice.setText(price);
-//		pageTotal=
+		// pageTotal=
 	}
 
 	public Handler hand = new Handler() {
@@ -103,7 +109,7 @@ public class DetailActivity extends BaseActivity implements OnClickListener {
 			switch (msg.what) {
 			case AsyncHttp.PAGE_DETAIL:
 				if (null == msg.obj) {
-					T.show(mContext, "解析数据失败!", Toast.LENGTH_LONG);
+					T.show(mContext, R.string.getDataFail, Toast.LENGTH_LONG);
 					return;
 				}
 				getInfo((Document) msg.obj);

@@ -45,8 +45,8 @@ public class SubActivity extends BaseActivity {
 	public void initData() {
 		Intent intent = getIntent();
 		zaZhi = (ZaZhi) intent.getSerializableExtra("ZaZhi");
-		if (null== zaZhi || null == zaZhi.urlTotal) {
-			T.show(mContext, "解析数据失败!", Toast.LENGTH_LONG);
+		if (null == zaZhi || null == zaZhi.urlTotal) {
+			T.show(mContext, R.string.getDataFail, Toast.LENGTH_LONG);
 			this.finish();
 		}
 		String[] params = { Constance.SERVER + zaZhi.urlTotal,
@@ -66,19 +66,26 @@ public class SubActivity extends BaseActivity {
 	}
 
 	public void getInfo(Document doc) {
-		Elements title = doc.getElementsByClass("page-title");
+		Elements title = doc.getElementsByClass(getString(R.string.page));
 		getActionBar().setTitle(title.get(0).text());
 		mZaZhis = new ArrayList<ZaZhi>();
-		Elements hovers = doc.getElementsByClass("hover");
-		Elements descriptionas = doc.getElementsByClass("description");
+		Elements hovers = doc.getElementsByClass(getString(R.string.hover));
+		Elements descriptionas = doc
+				.getElementsByClass(getString(R.string.description));
 		for (int i = 0; i < descriptionas.size(); i++) {
 			ZaZhi zaZhi = new ZaZhi();
-			String url = hovers.get(i+1).getElementsByTag("a").attr("href");
-			String src = hovers.get(i+1).getElementsByTag("img").attr("src");
-			String name = descriptionas.get(i).getElementsByTag("h6").text();
+			String url = hovers.get(i + 1)
+					.getElementsByTag(getString(R.string.a))
+					.attr(getString(R.string.href));
+			String src = hovers.get(i + 1)
+					.getElementsByTag(getString(R.string.img))
+					.attr(getString(R.string.src));
+			String name = descriptionas.get(i)
+					.getElementsByTag(getString(R.string.h6)).text();
 			zaZhi.setCurName(name);
 			zaZhi.setUrlDetail(url);
-			zaZhi.setUrlRead(url.replace("Issue", "OnLine"));
+			zaZhi.setUrlRead(url.replace(getString(R.string.Issue),
+					getString(R.string.OnLine)));
 			zaZhi.setUrlImage(src);
 			mZaZhis.add(zaZhi);
 		}
@@ -93,9 +100,7 @@ public class SubActivity extends BaseActivity {
 			switch (msg.what) {
 			case AsyncHttp.PAGE_SUB:
 				if (null == msg.obj) {
-					T.show(mContext, "解析数据失败!", Toast.LENGTH_LONG);
-					Toast.makeText(mContext, "解析数据失败!!!!!", Toast.LENGTH_LONG)
-							.show();
+					T.show(mContext,R.string.getDataFail, Toast.LENGTH_LONG);
 					return;
 				}
 				getInfo((Document) msg.obj);

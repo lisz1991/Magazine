@@ -47,12 +47,12 @@ public class ReadActivity extends BaseActivity {
 	@Override
 	public void initData() {
 		Intent intent = getIntent();
-		mZaZhi= (ZaZhi) intent.getSerializableExtra("ZaZhi");
-		if (null==mZaZhi||null==mZaZhi.urlRead) {
-			T.show(mContext, "解析数据失败!", Toast.LENGTH_LONG);
+		mZaZhi = (ZaZhi) intent.getSerializableExtra("ZaZhi");
+		if (null == mZaZhi || null == mZaZhi.urlRead) {
+			T.show(mContext, R.string.getDataFail, Toast.LENGTH_LONG);
 			this.finish();
 		}
-		mUrl=mZaZhi.urlRead;
+		mUrl = mZaZhi.urlRead;
 		getActionBar().setTitle(mZaZhi.curName);
 		mImages = new ArrayList<String>();
 		mReadAdapter = new ReadListViewAdapter(ReadActivity.this, mImages);
@@ -65,8 +65,9 @@ public class ReadActivity extends BaseActivity {
 	}
 
 	public void getInfo(Document doc) {
-		Elements pages = doc.getElementsByClass("outer_page");
-		mBaseUrl = pages.get(0).getElementsByTag("img").get(0).attr("src");
+		Elements pages = doc.getElementsByClass(getString(R.string.outer));
+		mBaseUrl = pages.get(0).getElementsByTag(getString(R.string.img))
+				.get(0).attr(getString(R.string.src));
 		if (mBaseUrl.endsWith("1.jpg")) {
 			for (int i = 1; i < mFirst; i++) {
 				mImages.add(mBaseUrl.replace("1.jpg", String.valueOf(i)
@@ -112,7 +113,7 @@ public class ReadActivity extends BaseActivity {
 			switch (msg.what) {
 			case AsyncHttp.PAGE_READ:
 				if (null == msg.obj) {
-					T.show(mContext, "解析数据失败!", Toast.LENGTH_LONG);
+					T.show(mContext, R.string.getDataFail, Toast.LENGTH_LONG);
 					return;
 				}
 				getInfo((Document) msg.obj);

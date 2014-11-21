@@ -62,7 +62,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		menu.findViewById(R.id.item_6).setOnClickListener(this);
 		menu.findViewById(R.id.item_7).setOnClickListener(this);
 
-		getActionBar().setTitle("推荐");
+		getActionBar().setTitle(getString(R.string.app_first));
 	}
 
 	@Override
@@ -198,18 +198,25 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 	public void getInfo(Document doc) {
 		mZaZhis = new ArrayList<ZaZhi>();
-		Elements hovers = doc.getElementsByClass("hover");
-		Elements descriptionas = doc.getElementsByClass("description");
+		Elements hovers = doc.getElementsByClass(getString(R.string.hover));
+		Elements descriptionas = doc
+				.getElementsByClass(getString(R.string.description));
 		for (int i = 0; i < descriptionas.size(); i++) {
 			ZaZhi zaZhi = new ZaZhi();
-			String url = hovers.get(i).getElementsByTag("a").attr("href");
-			String name = hovers.get(i).getElementsByTag("a").attr("title");
-			String src = hovers.get(i).getElementsByTag("img").attr("src");
-			String main = descriptionas.get(i).getElementsByTag("a")
-					.attr("href");
+			String url = hovers.get(i).getElementsByTag(getString(R.string.a))
+					.attr(getString(R.string.href));
+			String name = hovers.get(i).getElementsByTag(getString(R.string.a))
+					.attr(getString(R.string.title));
+			String src = hovers.get(i)
+					.getElementsByTag(getString(R.string.img))
+					.attr(getString(R.string.src));
+			String main = descriptionas.get(i)
+					.getElementsByTag(getString(R.string.a))
+					.attr(getString(R.string.href));
 			zaZhi.setCurName(name);
 			zaZhi.setUrlDetail(url);
-			zaZhi.setUrlRead(url.replace("Issue", "OnLine"));
+			zaZhi.setUrlRead(url.replace(getString(R.string.Issue),
+					getString(R.string.OnLine)));
 			zaZhi.setUrlTotal(main);
 			zaZhi.setUrlImage(src);
 			mZaZhis.add(zaZhi);
@@ -219,15 +226,20 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 	public void getData(Document doc) {
 		List<ZaZhi> datas = new ArrayList<ZaZhi>();
-		Elements inlines = doc.getElementsByClass("list-inline");
+		Elements inlines = doc.getElementsByClass(getString(R.string.inline));
 		for (int i = 0; i < inlines.size() - 1; i++) {
-			Elements cols = inlines.get(i).getElementsByTag("li");
+			Elements cols = inlines.get(i).getElementsByTag(
+					getString(R.string.li));
 			for (int j = 0; j < cols.size(); j++) {
 				ZaZhi zaZhi = new ZaZhi();
-				String url = cols.get(j).getElementsByTag("a").attr("href");
-				String name = cols.get(j).getElementsByTag("a").text();
+				String url = cols.get(j)
+						.getElementsByTag(getString(R.string.a))
+						.attr(getString(R.string.href));
+				String name = cols.get(j)
+						.getElementsByTag(getString(R.string.a)).text();
 				zaZhi.setDetailName(name);
-				zaZhi.setUrlRead(url.replace("Issue", "OnLine"));
+				zaZhi.setUrlRead(url.replace(getString(R.string.Issue),
+						getString(R.string.OnLine)));
 				zaZhi.setUrlTotal(url);
 				datas.add(zaZhi);
 			}
@@ -273,7 +285,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			if (null == msg.obj) {
-				T.show(mContext, "解析数据失败!", Toast.LENGTH_LONG);
+				T.show(mContext,R.string.getDataFail, Toast.LENGTH_LONG);
 				return;
 			}
 			switch (msg.what) {
