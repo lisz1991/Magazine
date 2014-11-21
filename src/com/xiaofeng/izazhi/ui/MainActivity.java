@@ -37,6 +37,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	private List<ZaZhi> mZaZhisOne, mZaZhisTwo, mZaZhisThree, mZaZhisFour,
 			mZaZhisFive, mZaZhisSix, mZaZhisSeven;
 	private static int mCurrentType = 0;
+	private static final int TYPE_NEWS = 1, TYPE_MONEY = 2, TYPE_GAME = 3,
+			TYPE_TECH = 4, TYPE_POPLE = 5, TYPE_LIFE = 6, TYPE_SPORT = 7;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,14 +80,14 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 				mListView.setAdapter(new MainTypeListAdapter(this, mZaZhisOne));
 				return;
 			}
-			click(1, Constance.NEWS);
+			click(TYPE_NEWS, Constance.NEWS);
 			break;
 		case R.id.item_2:
 			if (null != mZaZhisTwo) {
 				mListView.setAdapter(new MainTypeListAdapter(this, mZaZhisTwo));
 				return;
 			}
-			click(2, Constance.MONEY);
+			click(TYPE_MONEY, Constance.MONEY);
 			break;
 		case R.id.item_3:
 			if (null != mZaZhisThree) {
@@ -93,7 +95,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 						.setAdapter(new MainTypeListAdapter(this, mZaZhisThree));
 				return;
 			}
-			click(3, Constance.GAME);
+			click(TYPE_GAME, Constance.GAME);
 			break;
 		case R.id.item_4:
 			if (null != mZaZhisFour) {
@@ -101,7 +103,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 						.setAdapter(new MainTypeListAdapter(this, mZaZhisFour));
 				return;
 			}
-			click(4, Constance.TECH);
+			click(TYPE_TECH, Constance.TECH);
 			break;
 		case R.id.item_5:
 			if (null != mZaZhisFive) {
@@ -109,14 +111,14 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 						.setAdapter(new MainTypeListAdapter(this, mZaZhisFive));
 				return;
 			}
-			click(5, Constance.POPLE);
+			click(TYPE_POPLE, Constance.POPLE);
 			break;
 		case R.id.item_6:
 			if (null != mZaZhisSix) {
 				mListView.setAdapter(new MainTypeListAdapter(this, mZaZhisSix));
 				return;
 			}
-			click(6, Constance.LIFE);
+			click(TYPE_LIFE, Constance.LIFE);
 			break;
 		case R.id.item_7:
 			if (null != mZaZhisSeven) {
@@ -124,7 +126,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 						.setAdapter(new MainTypeListAdapter(this, mZaZhisSeven));
 				return;
 			}
-			click(7, Constance.SPORT);
+			click(TYPE_SPORT, Constance.SPORT);
 			break;
 		}
 	}
@@ -155,7 +157,29 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			Intent intent = new Intent(MainActivity.this, SubActivity.class);
-			intent.putExtra("ZaZhi", mZaZhis.get(position));
+			switch (mCurrentType) {
+			case TYPE_NEWS:
+				intent.putExtra("ZaZhi", mZaZhisOne.get(position));
+				break;
+			case TYPE_MONEY:
+				intent.putExtra("ZaZhi", mZaZhisTwo.get(position));
+				break;
+			case TYPE_GAME:
+				intent.putExtra("ZaZhi", mZaZhisThree.get(position));
+				break;
+			case TYPE_TECH:
+				intent.putExtra("ZaZhi", mZaZhisFour.get(position));
+				break;
+			case TYPE_POPLE:
+				intent.putExtra("ZaZhi", mZaZhisFive.get(position));
+				break;
+			case TYPE_LIFE:
+				intent.putExtra("ZaZhi", mZaZhisSix.get(position));
+				break;
+			case TYPE_SPORT:
+				intent.putExtra("ZaZhi", mZaZhisSeven.get(position));
+				break;
+			}
 			startActivity(intent);
 		}
 	}
@@ -209,31 +233,31 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			}
 		}
 		switch (mCurrentType) {
-		case 1:
+		case TYPE_NEWS:
 			mZaZhisOne = datas;
 			mListView.setAdapter(new MainTypeListAdapter(this, mZaZhisOne));
 			break;
-		case 2:
+		case TYPE_MONEY:
 			mZaZhisTwo = datas;
 			mListView.setAdapter(new MainTypeListAdapter(this, mZaZhisTwo));
 			break;
-		case 3:
+		case TYPE_GAME:
 			mZaZhisThree = datas;
 			mListView.setAdapter(new MainTypeListAdapter(this, mZaZhisThree));
 			break;
-		case 4:
+		case TYPE_TECH:
 			mZaZhisFour = datas;
 			mListView.setAdapter(new MainTypeListAdapter(this, mZaZhisFour));
 			break;
-		case 5:
+		case TYPE_POPLE:
 			mZaZhisFive = datas;
 			mListView.setAdapter(new MainTypeListAdapter(this, mZaZhisFive));
 			break;
-		case 6:
+		case TYPE_LIFE:
 			mZaZhisSix = datas;
 			mListView.setAdapter(new MainTypeListAdapter(this, mZaZhisSix));
 			break;
-		case 7:
+		case TYPE_SPORT:
 			mZaZhisSeven = datas;
 			mListView.setAdapter(new MainTypeListAdapter(this, mZaZhisSeven));
 			break;
