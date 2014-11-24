@@ -145,7 +145,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+			Intent intent = new Intent(MainActivity.this, FlipViewReadActivity.class);
 			intent.putExtra("ZaZhi", mZaZhis.get(position));
 			startActivity(intent);
 		}

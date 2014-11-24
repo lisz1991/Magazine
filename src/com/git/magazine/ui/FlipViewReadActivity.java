@@ -89,7 +89,6 @@ public class FlipViewReadActivity extends BaseActivity {
 	public void initData() {
 		Intent intent = getIntent();
 		magazineInfo = (MagazineInfo) intent.getSerializableExtra("ZaZhi");
-		totalPageCount = Integer.parseInt(magazineInfo.pageTotal);
 		pageUrlList = new ArrayList<String>();
 
 		if (null == magazineInfo || null == magazineInfo.urlRead) {
@@ -133,9 +132,12 @@ public class FlipViewReadActivity extends BaseActivity {
 		String pageTotal = pageTotalDesc.substring(pageTotalDesc.indexOf("/")+1, pageTotalDesc.indexOf("页"));
 		L.v(TAG, "totalPage:", pageTotal.replaceAll("\\s*", ""));
 		magazineInfo.setPageTotal(pageTotal.replaceAll("\\s*", ""));
+		
+		handler.sendEmptyMessage(FORMAT_DESC_DONE);
 	}
 
 	private void configurPageUrl(Document doc) {
+		totalPageCount = Integer.parseInt(magazineInfo.pageTotal);
 		if (totalPageCount > 50) {
 			totalPageCount = 51;
 		}
