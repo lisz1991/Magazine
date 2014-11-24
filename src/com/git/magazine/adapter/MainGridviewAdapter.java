@@ -11,15 +11,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.git.magazine.R;
-import com.git.magazine.entity.ZaZhi;
+import com.git.magazine.entity.MagazineInfo;
 import com.git.magezine.frame.BaseApp;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class MainGridviewAdapter extends BaseAdapter {
 	public Context con;
-	public List<ZaZhi> items;
+	public List<MagazineInfo> items;
 
-	public MainGridviewAdapter(Context con, List<ZaZhi> items) {
+	public MainGridviewAdapter(Context con, List<MagazineInfo> items) {
 		super();
 		this.con = con;
 		this.items = items;

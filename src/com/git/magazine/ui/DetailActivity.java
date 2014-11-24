@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.git.magazine.R;
 import com.git.magazine.Async.AsyncHttp;
 import com.git.magazine.constance.Constance;
-import com.git.magazine.entity.ZaZhi;
+import com.git.magazine.entity.MagazineInfo;
 import com.git.magazine.listener.ImageZoomListener;
 import com.git.magazine.utils.L;
 import com.git.magazine.utils.T;
@@ -27,8 +27,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public class DetailActivity extends BaseActivity implements OnClickListener {
 	public TextView detailName, detailCurrent, detailTime, detailUpdate,
 			detailTotal, detailPrice;
-	public ZaZhi zaZhi;
 	public ImageView image;
+	public MagazineInfo zaZhi;
 	public Button read;
 	public String pageTotal;
 	
@@ -58,7 +58,7 @@ public class DetailActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void initData() {
 		Intent intent = getIntent();
-		zaZhi = (ZaZhi) intent.getSerializableExtra("ZaZhi");
+		zaZhi = (MagazineInfo) intent.getSerializableExtra("ZaZhi");
 		if (null == zaZhi || null== zaZhi.urlImage || null== zaZhi.urlDetail) {
 			T.show(mContext, "解析数据失败!", Toast.LENGTH_LONG);
 			this.finish();
@@ -74,7 +74,7 @@ public class DetailActivity extends BaseActivity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.activity_ditail_button:
 //			Intent intent = new Intent(DetailActivity.this, ReadActivity.class);
-			Intent intent = new Intent(DetailActivity.this, ReadActivity_flip.class);
+			Intent intent = new Intent(DetailActivity.this, FlipViewReadActivity.class);
 			intent.putExtra("ZaZhi", zaZhi);
 			startActivity(intent);
 			break;

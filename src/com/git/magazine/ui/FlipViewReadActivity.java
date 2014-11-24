@@ -17,26 +17,29 @@ import com.git.magazine.Async.AsyncHttp;
 import com.git.magazine.adapter.ReadFlipviewAdapter;
 import com.git.magazine.adapter.ReadListViewAdapter;
 import com.git.magazine.constance.Constance;
-import com.git.magazine.entity.ZaZhi;
+import com.git.magazine.entity.MagazineInfo;
+import com.git.magazine.utils.L;
 import com.git.magazine.utils.T;
 import com.git.magezine.frame.BaseActivity;
 
-public class ReadActivity_flip extends BaseActivity {
+public class FlipViewReadActivity extends BaseActivity {
 	public ListView mListView;
 	public String mUrl, mBaseUrl;
-	public ZaZhi mZaZhi;
 	// public List<String> mImages;
 	public ReadListViewAdapter mReadAdapter;
 	public int mPage;// 当前最后页数
 	public int mFirst = 6;// 每次加载数量
 
 	// flip view
-
+	private static final String TAG = "FlipViewReadActivity";
+	private static final int FORMAT_DESC_DONE = 10000;
+	public MagazineInfo magazineInfo;
 	private FlipViewController flipView;
 	private int totalPageCount;
 	private ReadFlipviewAdapter flipViewAdapter;
 	public ArrayList<String> pageUrlList;
 	private Handler handler;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class ReadActivity_flip extends BaseActivity {
 		initHandler();
 		super.onCreate(savedInstanceState);
 		setContentView(flipView);
+		getMagazineDesc();
 	}
 
 	private void initHandler() {
@@ -53,6 +57,17 @@ public class ReadActivity_flip extends BaseActivity {
 			public void handleMessage(Message msg) {
 				super.handleMessage(msg);
 				switch (msg.what) {
+
+				case AsyncHttp.PAGE_DETAIL:
+					if (null == msg.obj) {
+						T.show(mContext, "解析数据失败!", Toast.LENGTH_LONG);
+						return;
+					}
+					formatMagazineDesc((Document) msg.obj);
+					break;
+				case FORMAT_DESC_DONE:
+					getMagazineContent();
+					break;
 				case AsyncHttp.PAGE_READ:
 					if (null == msg.obj) {
 						T.show(mContext, "解析数据失败!", Toast.LENGTH_LONG);
@@ -73,27 +88,55 @@ public class ReadActivity_flip extends BaseActivity {
 	@Override
 	public void initData() {
 		Intent intent = getIntent();
-		mZaZhi = (ZaZhi) intent.getSerializableExtra("ZaZhi");
-		totalPageCount = Integer.parseInt(mZaZhi.pageTotal);
+		magazineInfo = (MagazineInfo) intent.getSerializableExtra("ZaZhi");
+		totalPageCount = Integer.parseInt(magazineInfo.pageTotal);
 		pageUrlList = new ArrayList<String>();
 
-		if (null == mZaZhi || null == mZaZhi.urlRead) {
+		if (null == magazineInfo || null == magazineInfo.urlRead) {
 			T.show(mContext, "解析数据失败!", Toast.LENGTH_LONG);
 			this.finish();
 		}
-		mUrl = mZaZhi.urlRead;
-		getActionBar().setTitle(mZaZhi.curName);
+		mUrl = magazineInfo.urlRead;
+		getActionBar().setTitle(magazineInfo.curName);
 		flipViewAdapter = new ReadFlipviewAdapter(this, pageUrlList);
 		flipView.setAdapter(flipViewAdapter);
+	}
 
-		String[] params = { Constance.SERVER + mUrl,
-				String.valueOf(AsyncHttp.PAGE_READ) };
+	private void getMagazineDesc() {
+		String[] params = { Constance.SERVER + magazineInfo.urlDetail,
+				String.valueOf(AsyncHttp.PAGE_DETAIL) };
 		AsyncHttp.getInstance(this, handler).execute(params);
 
 	}
 
+	private void getMagazineContent() {
+		String[] params = { Constance.SERVER + mUrl,
+				String.valueOf(AsyncHttp.PAGE_READ) };
+		AsyncHttp.getInstance(this, handler).execute(params);
+	}
+	
+	private void formatMagazineDesc(Document magazineDesc){
+		Elements ths = magazineDesc.getElementsByClass("table");
+		String name = ths.get(0).getElementsByTag("td").get(1).text();
+		magazineInfo.setCurName(name);
+		String current = ths.get(0).getElementsByTag("td").get(3).text();
+		magazineInfo.setDetailCurrent(current);
+		String time = ths.get(0).getElementsByTag("td").get(5).text();
+		magazineInfo.setDetailTime(time);
+		String update = ths.get(1).getElementsByTag("td").get(1).text();
+		magazineInfo.setDetailUpdate(update);
+		String total = ths.get(1).getElementsByTag("td").get(7).text();
+		magazineInfo.setDetailTotal(total);
+		String price = ths.get(1).getElementsByTag("td").get(5).text();
+		magazineInfo.setDetailPrice(price);
+		String pageTotalDesc = ths.get(0).getElementsByTag("td").get(7).text();
+		String pageTotal = pageTotalDesc.substring(pageTotalDesc.indexOf("/")+1, pageTotalDesc.indexOf("页"));
+		L.v(TAG, "totalPage:", pageTotal.replaceAll("\\s*", ""));
+		magazineInfo.setPageTotal(pageTotal.replaceAll("\\s*", ""));
+	}
+
 	private void configurPageUrl(Document doc) {
-		if(totalPageCount > 50){
+		if (totalPageCount > 50) {
 			totalPageCount = 51;
 		}
 		Elements pages = doc.getElementsByClass("outer_page");

@@ -34,7 +34,7 @@
         </activity>
         <activity android:name="com.git.magazine.ui.ReadActivity" >
         </activity>
-        <activity android:name="com.git.magazine.ui.ReadActivity_flip" >
+        <activity android:name="com.git.magazine.ui.FlipViewReadActivity" >
         </activity>
         <activity android:name="com.git.magazine.ui.SubActivity" >
         </activity>

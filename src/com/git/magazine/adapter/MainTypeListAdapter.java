@@ -10,13 +10,13 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.git.magazine.R;
-import com.git.magazine.entity.ZaZhi;
+import com.git.magazine.entity.MagazineInfo;
 
 public class MainTypeListAdapter extends BaseAdapter {
 	public Context con;
-	public List<ZaZhi> items;
+	public List<MagazineInfo> items;
 
-	public MainTypeListAdapter(Context con, List<ZaZhi> items) {
+	public MainTypeListAdapter(Context con, List<MagazineInfo> items) {
 		super();
 		this.con = con;
 		this.items = items;

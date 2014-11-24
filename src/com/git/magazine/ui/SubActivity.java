@@ -20,14 +20,14 @@ import com.git.magazine.R;
 import com.git.magazine.Async.AsyncHttp;
 import com.git.magazine.adapter.MainGridviewAdapter;
 import com.git.magazine.constance.Constance;
-import com.git.magazine.entity.ZaZhi;
+import com.git.magazine.entity.MagazineInfo;
 import com.git.magazine.utils.T;
 import com.git.magezine.frame.BaseActivity;
 
 public class SubActivity extends BaseActivity {
-	private List<ZaZhi> mZaZhis;
+	private List<MagazineInfo> mZaZhis;
 	private GridView mGridView;
-	private ZaZhi zaZhi;
+	private MagazineInfo zaZhi;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class SubActivity extends BaseActivity {
 	@Override
 	public void initData() {
 		Intent intent = getIntent();
-		zaZhi = (ZaZhi) intent.getSerializableExtra("ZaZhi");
+		zaZhi = (MagazineInfo) intent.getSerializableExtra("ZaZhi");
 		if (null== zaZhi || null == zaZhi.urlTotal) {
 			T.show(mContext, "解析数据失败!", Toast.LENGTH_LONG);
 			this.finish();
@@ -68,11 +68,11 @@ public class SubActivity extends BaseActivity {
 	public void getInfo(Document doc) {
 		Elements title = doc.getElementsByClass("page-title");
 		getActionBar().setTitle(title.get(0).text());
-		mZaZhis = new ArrayList<ZaZhi>();
+		mZaZhis = new ArrayList<MagazineInfo>();
 		Elements hovers = doc.getElementsByClass("hover");
 		Elements descriptionas = doc.getElementsByClass("description");
 		for (int i = 0; i < descriptionas.size(); i++) {
-			ZaZhi zaZhi = new ZaZhi();
+			MagazineInfo zaZhi = new MagazineInfo();
 			String url = hovers.get(i+1).getElementsByTag("a").attr("href");
 			String src = hovers.get(i+1).getElementsByTag("img").attr("src");
 			String name = descriptionas.get(i).getElementsByTag("h6").text();

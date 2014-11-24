@@ -2,24 +2,24 @@ package com.git.magazine.entity;
 
 import java.io.Serializable;
 
-public class ZaZhi implements Serializable {
+public class MagazineInfo implements Serializable {
 	
 	private static final long serialVersionUID = 4103731575001824964L;
 	
-	public String curName;
-	public String urlRead;
-	public String urlDetail;
-	public String urlImage;
-	public String urlTotal;
-	public String detailName;
-	public String detailCurrent;
-	public String detailTime;
-	public String detailUpdate;
-	public String detailTotal;
-	public String detailPrice;
-	public String pageTotal;
+	public String curName;  //名称
+	public String urlRead;   //阅读地址
+	public String urlDetail;	//详情页地址
+	public String urlImage;		//封面图片地址
+	public String urlTotal;		//总期次地址
+	public String detailName;	//详细名称
+	public String detailCurrent;	//当前期次
+	public String detailTime;		//本期更新时间
+	public String detailUpdate;		//更新间隔
+	public String detailTotal;		//总期次
+	public String detailPrice;		//纸质版价格
+	public String pageTotal;		//本期总页数
 
-	public ZaZhi() {
+	public MagazineInfo() {
 		super();
 	}
 

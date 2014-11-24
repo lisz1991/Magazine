@@ -19,7 +19,7 @@ import com.git.magazine.R;
 import com.git.magazine.Async.AsyncHttp;
 import com.git.magazine.adapter.ReadListViewAdapter;
 import com.git.magazine.constance.Constance;
-import com.git.magazine.entity.ZaZhi;
+import com.git.magazine.entity.MagazineInfo;
 import com.git.magazine.utils.L;
 import com.git.magazine.utils.T;
 import com.git.magezine.frame.BaseActivity;
@@ -27,7 +27,7 @@ import com.git.magezine.frame.BaseActivity;
 public class ReadActivity extends BaseActivity {
 	public ListView mListView;
 	public String mUrl, mBaseUrl;
-	public ZaZhi mZaZhi;
+	public MagazineInfo mZaZhi;
 	public List<String> mImages;
 	public ReadListViewAdapter mReadAdapter;
 	public int mPage;// 当前最后页数
@@ -47,7 +47,7 @@ public class ReadActivity extends BaseActivity {
 	@Override
 	public void initData() {
 		Intent intent = getIntent();
-		mZaZhi= (ZaZhi) intent.getSerializableExtra("ZaZhi");
+		mZaZhi= (MagazineInfo) intent.getSerializableExtra("ZaZhi");
 		if (null==mZaZhi||null==mZaZhi.urlRead) {
 			T.show(mContext, "解析数据失败!", Toast.LENGTH_LONG);
 			this.finish();

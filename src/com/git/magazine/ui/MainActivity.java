@@ -24,17 +24,17 @@ import com.git.magazine.Async.AsyncHttp;
 import com.git.magazine.adapter.MainGridviewAdapter;
 import com.git.magazine.adapter.MainTypeListAdapter;
 import com.git.magazine.constance.Constance;
-import com.git.magazine.entity.ZaZhi;
+import com.git.magazine.entity.MagazineInfo;
 import com.git.magazine.utils.T;
 import com.git.magazine.view.SlidingMenu;
 import com.git.magezine.frame.BaseActivity;
 
 public class MainActivity extends BaseActivity implements OnClickListener {
-	private List<ZaZhi> mZaZhis;
+	private List<MagazineInfo> mZaZhis;
 	private GridView mGridView;
 	private ListView mListView;
 	private SlidingMenu menu;
-	private List<ZaZhi> mZaZhisOne, mZaZhisTwo, mZaZhisThree, mZaZhisFour,
+	private List<MagazineInfo> mZaZhisOne, mZaZhisTwo, mZaZhisThree, mZaZhisFour,
 			mZaZhisFive, mZaZhisSix, mZaZhisSeven;
 	private static int mCurrentType = 0;
 	private static final int TYPE_NEWS = 1, TYPE_MONEY = 2, TYPE_GAME = 3,
@@ -197,11 +197,11 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	}
 
 	public void getInfo(Document doc) {
-		mZaZhis = new ArrayList<ZaZhi>();
+		mZaZhis = new ArrayList<MagazineInfo>();
 		Elements hovers = doc.getElementsByClass("hover");
 		Elements descriptionas = doc.getElementsByClass("description");
 		for (int i = 0; i < descriptionas.size(); i++) {
-			ZaZhi zaZhi = new ZaZhi();
+			MagazineInfo zaZhi = new MagazineInfo();
 			String url = hovers.get(i).getElementsByTag("a").attr("href");
 			String name = hovers.get(i).getElementsByTag("a").attr("title");
 			String src = hovers.get(i).getElementsByTag("img").attr("src");
@@ -218,12 +218,12 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	}
 
 	public void getData(Document doc) {
-		List<ZaZhi> datas = new ArrayList<ZaZhi>();
+		List<MagazineInfo> datas = new ArrayList<MagazineInfo>();
 		Elements inlines = doc.getElementsByClass("list-inline");
 		for (int i = 0; i < inlines.size() - 1; i++) {
 			Elements cols = inlines.get(i).getElementsByTag("li");
 			for (int j = 0; j < cols.size(); j++) {
-				ZaZhi zaZhi = new ZaZhi();
+				MagazineInfo zaZhi = new MagazineInfo();
 				String url = cols.get(j).getElementsByTag("a").attr("href");
 				String name = cols.get(j).getElementsByTag("a").text();
 				zaZhi.setDetailName(name);
