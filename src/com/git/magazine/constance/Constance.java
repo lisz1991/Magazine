@@ -56,4 +56,42 @@ public class Constance {
 	public static final String SPORT_TIYU = "/Magazine/Class/yundongjiankang/tiyuhuwai.html";// 体育户外
 	public static final String SPORT_QICHE = "/Magazine/Class/yundongjiankang/qiche.html";// 汽车
 	public static final String SPORT_SHEYING = "/Magazine/Class/yundongjiankang/sheying.html";// 摄影
+
+	public static final String[] TYPES_NAMES = { "新闻娱乐", "商业财经", "电脑游戏",
+			"文学教育", "人文科普", "生活时尚", "运动健康" };
+	public static final String[] TYPES_URLS = { NEWS, MONEY, GAME, TECH, POPLE,
+			LIFE, SPORT };
+
+	public static final String[] TYPES_NAMES_NEWS = { "新闻时事", "影视娱乐", "军事",
+			"人物" };
+	public static final String[] TYPES_URLS_NEWS = { NEWS_SHISHI, NEWS_YULE,
+			NEWS_JUNSHI, NEWS_RENWU };
+
+	public static final String[] TYPES_NAMES_MONEY = { "财经资讯", "商业", "管理",
+			"投资理财", "营销" };
+	public static final String[] TYPES_URLS_MONEY = { MONEY_ZIXUN,
+			MONEY_SHANGYE, MONEY_GUANLI, MONEY_TOUZI, MONEY_YINGXIAO };
+
+	public static final String[] TYPES_NAMES_GAME = { "数码", "计算机", "游戏", "家居设计" };
+	public static final String[] TYPES_URLS_GAME = { GAME_SHUMA, GAME_JISUANJI,
+			GAME_YOUXI, GAME_JIAJU };
+
+	public static final String[] TYPES_NAMES_TECH = { "文学散文", "文摘文萃", "青春文学",
+			"故事小说", "教育" };
+	public static final String[] TYPES_URLS_TECH = { TECH_SANWEN, TECH_WENZHAI,
+			TECH_QINGCHUN, TECH_GUSHI, TECH_JIAOYU };
+
+	public static final String[] TYPES_NAMES_POPLE = { "天文地理", "历史博览", "科普探索" };
+	public static final String[] TYPES_URLS_POPLE = { POPLE_DILI, POPLE_LISHI,
+			POPLE_KEPU };
+
+	public static final String[] TYPES_NAMES_LIFE = { "女性时尚", "美妆服饰", "男性时尚",
+			"城市生活", "家庭情感", "母婴育儿", "美食宠物" };
+	public static final String[] TYPES_URLS_LIFE = { LIFE_SHISHANG, LIFE_FUSHI,
+			LIFE_NANXING, LIFE_CHENGSHI, LIFE_JIATING, LIFE_MUYING, LIFE_MEISHI };
+
+	public static final String[] TYPES_NAMES_SPORT = { "健康养生", "旅游", "体育户外",
+			"汽车", "摄影" };
+	public static final String[] TYPES_URLS_SPORT = { SPORT_JIANKANG,
+			SPORT_LVYOU, SPORT_TIYU, SPORT_QICHE, SPORT_SHEYING };
 }
