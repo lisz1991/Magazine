@@ -1,4 +1,4 @@
-<com.xiaofeng.izazhi.view.SlidingMenu xmlns:android="http://schemas.android.com/apk/res/android"
+<com.git.magazine.view.SlidingMenu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/id_menu"
     android:layout_width="wrap_content"
@@ -23,4 +23,4 @@
         </ListView>
     </LinearLayout>
 
-</com.xiaofeng.izazhi.view.SlidingMenu>
+</com.git.magazine.view.SlidingMenu>

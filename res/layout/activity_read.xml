@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.xiaofeng.izazhi.view.ZoomView
+    <com.git.magazine.view.ZoomView
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
@@ -16,6 +16,6 @@
             android:scrollbars="none"
             android:divider="@color/none" >
         </ListView>
-    </com.xiaofeng.izazhi.view.ZoomView>
+    </com.git.magazine.view.ZoomView>
 
 </LinearLayout>
