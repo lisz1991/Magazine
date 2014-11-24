@@ -35,7 +35,7 @@ public class ReadActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		setContentView(R.layout.activity_read);
+//		setContentView(R.layout.activity_read);
 		super.onCreate(savedInstanceState);
 	}
 
