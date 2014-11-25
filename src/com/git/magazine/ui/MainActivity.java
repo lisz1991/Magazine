@@ -32,6 +32,7 @@ import com.git.magazine.constance.Constance;
 import com.git.magazine.entity.Column;
 import com.git.magazine.entity.MagazineInfo;
 import com.git.magazine.entity.Type;
+import com.git.magazine.utils.L;
 import com.git.magazine.utils.T;
 import com.git.magazine.view.ExpandableList;
 import com.git.magazine.view.ExpandableList.OnHeaderUpdateListener;
@@ -48,17 +49,19 @@ public class MainActivity extends BaseActivity implements
 	private GridView mGridView;
 	private ListView mListView;
 	private SlidingMenu menu;
-	private List<MagazineInfo> mZaZhisOne, mZaZhisTwo, mZaZhisThree, mZaZhisFour,
-			mZaZhisFive, mZaZhisSix, mZaZhisSeven;
+	private List<MagazineInfo> mZaZhisOne, mZaZhisTwo, mZaZhisThree,
+			mZaZhisFour, mZaZhisFive, mZaZhisSix, mZaZhisSeven;
 	private static int mCurrentType = 0;
 	private static final int TYPE_NEWS = 1, TYPE_MONEY = 2, TYPE_GAME = 3,
 			TYPE_TECH = 4, TYPE_POPLE = 5, TYPE_LIFE = 6, TYPE_SPORT = 7;
 	private ExpandableList expandableListView;
 	private StickyLayout stickyLayout;
 	private MainLeftExpandAdapter adapter;
+	private MainGridviewAdapter gridAdapter;
 
 	private ArrayList<Type> groupList;
 	private ArrayList<List<Column>> childList;
+	private static final String TAG = "MainActivity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,10 @@ public class MainActivity extends BaseActivity implements
 		mGridView.setOnItemLongClickListener(new ItemLongClick());
 		mListView = (ListView) findViewById(R.id.main_listView);
 		mListView.setOnItemClickListener(new ListClick());
+
+		mZaZhis = new ArrayList<MagazineInfo>();
+		gridAdapter = new MainGridviewAdapter(this, mZaZhis);
+		mGridView.setAdapter(gridAdapter);
 
 		menu = (SlidingMenu) findViewById(R.id.id_menu);
 		expandableListView = (ExpandableList) menu
@@ -120,7 +127,7 @@ public class MainActivity extends BaseActivity implements
 				for (int j = 0; j < Constance.TYPES_NAMES_GAME.length; j++) {
 					Column people = new Column();
 					people.setName(Constance.TYPES_NAMES_GAME[j]);
-					people.setUrl(Constance.TYPES_NAMES_GAME[j]);
+					people.setUrl(Constance.TYPES_URLS_GAME[j]);
 					childTemp.add(people);
 				}
 			} else if (i == 3) {
@@ -128,7 +135,7 @@ public class MainActivity extends BaseActivity implements
 				for (int j = 0; j < Constance.TYPES_NAMES_TECH.length; j++) {
 					Column people = new Column();
 					people.setName(Constance.TYPES_NAMES_TECH[j]);
-					people.setUrl(Constance.TYPES_NAMES_TECH[j]);
+					people.setUrl(Constance.TYPES_URLS_TECH[j]);
 					childTemp.add(people);
 				}
 			} else if (i == 4) {
@@ -136,7 +143,7 @@ public class MainActivity extends BaseActivity implements
 				for (int j = 0; j < Constance.TYPES_NAMES_POPLE.length; j++) {
 					Column people = new Column();
 					people.setName(Constance.TYPES_NAMES_POPLE[j]);
-					people.setUrl(Constance.TYPES_NAMES_POPLE[j]);
+					people.setUrl(Constance.TYPES_URLS_POPLE[j]);
 					childTemp.add(people);
 				}
 			} else if (i == 5) {
@@ -144,7 +151,7 @@ public class MainActivity extends BaseActivity implements
 				for (int j = 0; j < Constance.TYPES_NAMES_LIFE.length; j++) {
 					Column people = new Column();
 					people.setName(Constance.TYPES_NAMES_LIFE[j]);
-					people.setUrl(Constance.TYPES_NAMES_LIFE[j]);
+					people.setUrl(Constance.TYPES_URLS_LIFE[j]);
 					childTemp.add(people);
 				}
 			} else {
@@ -152,7 +159,7 @@ public class MainActivity extends BaseActivity implements
 				for (int j = 0; j < Constance.TYPES_NAMES_SPORT.length; j++) {
 					Column people = new Column();
 					people.setName(Constance.TYPES_NAMES_SPORT[j]);
-					people.setUrl(Constance.TYPES_NAMES_SPORT[j]);
+					people.setUrl(Constance.TYPES_URLS_SPORT[j]);
 					childTemp.add(people);
 				}
 			}
@@ -240,7 +247,8 @@ public class MainActivity extends BaseActivity implements
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			Intent intent = new Intent(MainActivity.this, FlipViewReadActivity.class);
+			Intent intent = new Intent(MainActivity.this,
+					FlipViewReadActivity.class);
 			intent.putExtra("ZaZhi", mZaZhis.get(position));
 			startActivity(intent);
 		}
@@ -292,6 +300,7 @@ public class MainActivity extends BaseActivity implements
 	}
 
 	public void getInfo(Document doc) {
+		// mZaZhis.clear();
 		mZaZhis = new ArrayList<MagazineInfo>();
 		Elements hovers = doc.getElementsByClass(getString(R.string.hover));
 		Elements descriptionas = doc
@@ -315,8 +324,9 @@ public class MainActivity extends BaseActivity implements
 			zaZhi.setUrlTotal(main);
 			zaZhi.setUrlImage(src);
 			mZaZhis.add(zaZhi);
+			L.v(TAG, "zazhi:" + i, zaZhi.toString());
 		}
-		mGridView.setAdapter(new MainGridviewAdapter(this, mZaZhis));
+		gridAdapter.updateList(mZaZhis);
 	}
 
 	public void getData(Document doc) {
@@ -408,7 +418,7 @@ public class MainActivity extends BaseActivity implements
 	@Override
 	public View getPinnedHeader() {
 		View headerView = (ViewGroup) getLayoutInflater().inflate(
-				R.layout.group, null);
+				R.layout.activity_main_left_group, null);
 		headerView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT));
 		return headerView;
@@ -430,6 +440,15 @@ public class MainActivity extends BaseActivity implements
 	@Override
 	public boolean onChildClick(ExpandableListView arg0, View arg1, int arg2,
 			int arg3, long arg4) {
+		TextView urlView = (TextView) arg1.findViewById(R.id.child_url);
+		TextView nameView = (TextView) arg1.findViewById(R.id.child_name);
+		String url = (String) urlView.getText();
+		L.v(TAG, "httpUrl:", url);
+		String name = (String) nameView.getText();
+		String[] params = { Constance.SERVER + url,
+				String.valueOf(AsyncHttp.PAGE_MAIN) };
+		AsyncHttp.getInstance(this, mHandelr).execute(params);
+		getActionBar().setTitle(name);
 		return false;
 	}
 }

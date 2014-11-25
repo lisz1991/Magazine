@@ -74,7 +74,7 @@ public class MainLeftExpandAdapter extends BaseExpandableListAdapter {
 		TypeHolder TypeHolder = null;
 		if (convertView == null) {
 			TypeHolder = new TypeHolder();
-			convertView = inflater.inflate(R.layout.group, null);
+			convertView = inflater.inflate(R.layout.activity_main_left_group, null);
 			TypeHolder.textView = (TextView) convertView
 					.findViewById(R.id.group_name);
 			TypeHolder.imageView = (TextView) convertView
@@ -94,11 +94,11 @@ public class MainLeftExpandAdapter extends BaseExpandableListAdapter {
 		ColumnHolder ColumnHolder = null;
 		if (convertView == null) {
 			ColumnHolder = new ColumnHolder();
-			convertView = inflater.inflate(R.layout.child, null);
+			convertView = inflater.inflate(R.layout.activity_main_left_child, null);
 
 			ColumnHolder.textName = (TextView) convertView
 					.findViewById(R.id.child_name);
-			ColumnHolder.textAge = (TextView) convertView
+			ColumnHolder.textUrl = (TextView) convertView
 					.findViewById(R.id.child_url);
 			convertView.setTag(ColumnHolder);
 		} else {
@@ -106,6 +106,8 @@ public class MainLeftExpandAdapter extends BaseExpandableListAdapter {
 		}
 		ColumnHolder.textName.setText(((Column) getChild(groupPosition,
 				childPosition)).getName());
+		ColumnHolder.textUrl.setText(((Column) getChild(groupPosition,
+				childPosition)).getUrl());
 		return convertView;
 	}
 
@@ -121,6 +123,6 @@ public class MainLeftExpandAdapter extends BaseExpandableListAdapter {
 
 	class ColumnHolder {
 		TextView textName;
-		TextView textAge;
+		TextView textUrl;
 	}
 }

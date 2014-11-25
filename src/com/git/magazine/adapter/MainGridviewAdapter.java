@@ -12,17 +12,24 @@ import android.widget.TextView;
 
 import com.git.magazine.R;
 import com.git.magazine.entity.MagazineInfo;
+import com.git.magazine.utils.L;
 import com.git.magezine.frame.BaseApp;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class MainGridviewAdapter extends BaseAdapter {
 	public Context con;
 	public List<MagazineInfo> items;
+	private static final String TAG = "MainGridviewAdapter";
 
 	public MainGridviewAdapter(Context con, List<MagazineInfo> items) {
 		super();
 		this.con = con;
 		this.items = items;
+	}
+	
+	public void updateList(List<MagazineInfo> itemList){
+		this.items = itemList;
+		this.notifyDataSetChanged();
 	}
 
 	@Override
@@ -59,7 +66,10 @@ public class MainGridviewAdapter extends BaseAdapter {
 //				items.get(position).urlDetail);
 //		convertView.setTag(R.id.main_listview_item_textView,
 //				items.get(position).urlTotal);
+		holder.text.setText("");
 		holder.text.setText(items.get(position).curName);
+		L.v(TAG, "item_name:", items.get(position).curName);
+		holder.image.setImageBitmap(null);
 		ImageLoader.getInstance().displayImage(items.get(position).urlImage,
 				holder.image, BaseApp.displayImageOptions);
 		return convertView;

@@ -38,8 +38,6 @@
         </activity>
         <activity android:name="com.git.magazine.ui.SubActivity" >
         </activity>
-        <activity android:name="com.git.magazine.ui.TypeActivity" >
-        </activity>
     </application>
 
 </manifest>
