@@ -47,13 +47,7 @@ public class MainActivity extends BaseActivity implements
 		OnGiveUpTouchEventListener {
 	private List<MagazineInfo> mZaZhis;
 	private GridView mGridView;
-	private ListView mListView;
 	private SlidingMenu menu;
-	private List<MagazineInfo> mZaZhisOne, mZaZhisTwo, mZaZhisThree,
-			mZaZhisFour, mZaZhisFive, mZaZhisSix, mZaZhisSeven;
-	private static int mCurrentType = 0;
-	private static final int TYPE_NEWS = 1, TYPE_MONEY = 2, TYPE_GAME = 3,
-			TYPE_TECH = 4, TYPE_POPLE = 5, TYPE_LIFE = 6, TYPE_SPORT = 7;
 	private ExpandableList expandableListView;
 	private StickyLayout stickyLayout;
 	private MainLeftExpandAdapter adapter;
@@ -74,8 +68,6 @@ public class MainActivity extends BaseActivity implements
 		mGridView = (GridView) findViewById(R.id.main_gridView);
 		mGridView.setOnItemClickListener(new ItemClick());
 		mGridView.setOnItemLongClickListener(new ItemLongClick());
-		mListView = (ListView) findViewById(R.id.main_listView);
-		mListView.setOnItemClickListener(new ListClick());
 
 		mZaZhis = new ArrayList<MagazineInfo>();
 		gridAdapter = new MainGridviewAdapter(this, mZaZhis);
@@ -174,73 +166,6 @@ public class MainActivity extends BaseActivity implements
 		stickyLayout.setOnGiveUpTouchEventListener(this);
 	}
 
-	// @Override
-	// public void onClick(View v) {
-	// switch (v.getId()) {
-	// case R.id.item_1:
-	// if (null != mZaZhisOne) {
-	// mListView.setAdapter(new MainTypeListAdapter(this, mZaZhisOne));
-	// return;
-	// }
-	// click(TYPE_NEWS, Constance.NEWS);
-	// break;
-	// case R.id.item_2:
-	// if (null != mZaZhisTwo) {
-	// mListView.setAdapter(new MainTypeListAdapter(this, mZaZhisTwo));
-	// return;
-	// }
-	// click(TYPE_MONEY, Constance.MONEY);
-	// break;
-	// case R.id.item_3:
-	// if (null != mZaZhisThree) {
-	// mListView
-	// .setAdapter(new MainTypeListAdapter(this, mZaZhisThree));
-	// return;
-	// }
-	// click(TYPE_GAME, Constance.GAME);
-	// break;
-	// case R.id.item_4:
-	// if (null != mZaZhisFour) {
-	// mListView
-	// .setAdapter(new MainTypeListAdapter(this, mZaZhisFour));
-	// return;
-	// }
-	// click(TYPE_TECH, Constance.TECH);
-	// break;
-	// case R.id.item_5:
-	// if (null != mZaZhisFive) {
-	// mListView
-	// .setAdapter(new MainTypeListAdapter(this, mZaZhisFive));
-	// return;
-	// }
-	// click(TYPE_POPLE, Constance.POPLE);
-	// break;
-	// case R.id.item_6:
-	// if (null != mZaZhisSix) {
-	// mListView.setAdapter(new MainTypeListAdapter(this, mZaZhisSix));
-	// return;
-	// }
-	// click(TYPE_LIFE, Constance.LIFE);
-	// break;
-	// case R.id.item_7:
-	// if (null != mZaZhisSeven) {
-	// mListView
-	// .setAdapter(new MainTypeListAdapter(this, mZaZhisSeven));
-	// return;
-	// }
-	// click(TYPE_SPORT, Constance.SPORT);
-	// break;
-	// }
-	// }
-	//
-	// public void click(int a, String url) {
-	// if (a == mCurrentType) {
-	// return;
-	// }
-	// mCurrentType = a;
-	// String[] params = { url, String.valueOf(AsyncHttp.PAGE_TYPE) };
-	// AsyncHttp.getInstance(this, mHandelr).execute(params);
-	// }
 
 	public class ItemClick implements OnItemClickListener {
 
@@ -248,44 +173,12 @@ public class MainActivity extends BaseActivity implements
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			Intent intent = new Intent(MainActivity.this,
-					FlipViewReadActivity.class);
+					DetailActivity.class);
 			intent.putExtra("ZaZhi", mZaZhis.get(position));
 			startActivity(intent);
 		}
 	}
 
-	public class ListClick implements OnItemClickListener {
-
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
-			Intent intent = new Intent(MainActivity.this, SubActivity.class);
-			switch (mCurrentType) {
-			case TYPE_NEWS:
-				intent.putExtra("ZaZhi", mZaZhisOne.get(position));
-				break;
-			case TYPE_MONEY:
-				intent.putExtra("ZaZhi", mZaZhisTwo.get(position));
-				break;
-			case TYPE_GAME:
-				intent.putExtra("ZaZhi", mZaZhisThree.get(position));
-				break;
-			case TYPE_TECH:
-				intent.putExtra("ZaZhi", mZaZhisFour.get(position));
-				break;
-			case TYPE_POPLE:
-				intent.putExtra("ZaZhi", mZaZhisFive.get(position));
-				break;
-			case TYPE_LIFE:
-				intent.putExtra("ZaZhi", mZaZhisSix.get(position));
-				break;
-			case TYPE_SPORT:
-				intent.putExtra("ZaZhi", mZaZhisSeven.get(position));
-				break;
-			}
-			startActivity(intent);
-		}
-	}
 
 	public class ItemLongClick implements OnItemLongClickListener {
 
@@ -300,7 +193,6 @@ public class MainActivity extends BaseActivity implements
 	}
 
 	public void getInfo(Document doc) {
-		// mZaZhis.clear();
 		mZaZhis = new ArrayList<MagazineInfo>();
 		Elements hovers = doc.getElementsByClass(getString(R.string.hover));
 		Elements descriptionas = doc
@@ -329,60 +221,6 @@ public class MainActivity extends BaseActivity implements
 		gridAdapter.updateList(mZaZhis);
 	}
 
-	public void getData(Document doc) {
-		List<MagazineInfo> datas = new ArrayList<MagazineInfo>();
-		Elements inlines = doc.getElementsByClass(getString(R.string.inline));
-		for (int i = 0; i < inlines.size() - 1; i++) {
-			Elements cols = inlines.get(i).getElementsByTag(
-					getString(R.string.li));
-			for (int j = 0; j < cols.size(); j++) {
-				MagazineInfo zaZhi = new MagazineInfo();
-				String url = cols.get(j)
-						.getElementsByTag(getString(R.string.a))
-						.attr(getString(R.string.href));
-				String name = cols.get(j)
-						.getElementsByTag(getString(R.string.a)).text();
-				zaZhi.setDetailName(name);
-				zaZhi.setUrlRead(url.replace(getString(R.string.Issue),
-						getString(R.string.OnLine)));
-				zaZhi.setUrlTotal(url);
-				datas.add(zaZhi);
-			}
-		}
-		switch (mCurrentType) {
-		case TYPE_NEWS:
-			mZaZhisOne = datas;
-			mListView.setAdapter(new MainTypeListAdapter(this, mZaZhisOne));
-			break;
-		case TYPE_MONEY:
-			mZaZhisTwo = datas;
-			mListView.setAdapter(new MainTypeListAdapter(this, mZaZhisTwo));
-			break;
-		case TYPE_GAME:
-			mZaZhisThree = datas;
-			mListView.setAdapter(new MainTypeListAdapter(this, mZaZhisThree));
-			break;
-		case TYPE_TECH:
-			mZaZhisFour = datas;
-			mListView.setAdapter(new MainTypeListAdapter(this, mZaZhisFour));
-			break;
-		case TYPE_POPLE:
-			mZaZhisFive = datas;
-			mListView.setAdapter(new MainTypeListAdapter(this, mZaZhisFive));
-			break;
-		case TYPE_LIFE:
-			mZaZhisSix = datas;
-			mListView.setAdapter(new MainTypeListAdapter(this, mZaZhisSix));
-			break;
-		case TYPE_SPORT:
-			mZaZhisSeven = datas;
-			mListView.setAdapter(new MainTypeListAdapter(this, mZaZhisSeven));
-			break;
-
-		}
-		mListView.setVisibility(View.VISIBLE);
-		mGridView.setVisibility(View.GONE);
-	}
 
 	private Handler mHandelr = new Handler() {
 
@@ -396,9 +234,6 @@ public class MainActivity extends BaseActivity implements
 			switch (msg.what) {
 			case AsyncHttp.PAGE_MAIN:
 				getInfo((Document) msg.obj);
-				break;
-			case AsyncHttp.PAGE_TYPE:
-				getData((Document) msg.obj);
 				break;
 			}
 		}

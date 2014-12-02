@@ -22,17 +22,6 @@
             android:scrollbars="none"
             android:verticalSpacing="3dp" >
         </GridView>
-
-        <ListView
-            android:id="@+id/main_listView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:horizontalSpacing="2dp"
-            android:listSelector="@color/none"
-            android:scrollbars="none"
-            android:verticalSpacing="3dp"
-            android:visibility="invisible" >
-        </ListView>
     </LinearLayout>
 
 </com.git.magazine.view.SlidingMenu>

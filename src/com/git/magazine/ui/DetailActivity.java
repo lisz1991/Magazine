@@ -73,8 +73,7 @@ public class DetailActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.activity_ditail_button:
-//			Intent intent = new Intent(DetailActivity.this, ReadActivity.class);
-			Intent intent = new Intent(DetailActivity.this, FlipViewReadActivity.class);
+			Intent intent = new Intent(DetailActivity.this, ReadActivity.class);
 			intent.putExtra("ZaZhi", zaZhi);
 			startActivity(intent);
 			break;
@@ -100,9 +99,7 @@ public class DetailActivity extends BaseActivity implements OnClickListener {
 		String pageTotal = pageTotalDesc.substring(pageTotalDesc.indexOf("/")+1, pageTotalDesc.indexOf("页"));
 		L.v(TAG, "totalPage:", pageTotal.replaceAll("\\s*", ""));
 		zaZhi.setPageTotal(pageTotal.replaceAll("\\s*", ""));
-		
-		
-		
+		read.performClick();	
 	}
 
 	public Handler hand = new Handler() {

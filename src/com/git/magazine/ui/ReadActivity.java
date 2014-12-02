@@ -7,9 +7,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
@@ -35,7 +38,7 @@ public class ReadActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-//		setContentView(R.layout.activity_read);
+		setContentView(R.layout.activity_read);
 		super.onCreate(savedInstanceState);
 	}
 
@@ -47,12 +50,12 @@ public class ReadActivity extends BaseActivity {
 	@Override
 	public void initData() {
 		Intent intent = getIntent();
-		mZaZhi= (MagazineInfo) intent.getSerializableExtra("ZaZhi");
-		if (null==mZaZhi||null==mZaZhi.urlRead) {
+		mZaZhi = (MagazineInfo) intent.getSerializableExtra("ZaZhi");
+		if (null == mZaZhi || null == mZaZhi.urlRead) {
 			T.show(mContext, "解析数据失败!", Toast.LENGTH_LONG);
 			this.finish();
 		}
-		mUrl=mZaZhi.urlRead;
+		mUrl = mZaZhi.urlRead;
 		getActionBar().setTitle(mZaZhi.curName);
 		mImages = new ArrayList<String>();
 		mReadAdapter = new ReadListViewAdapter(ReadActivity.this, mImages);
