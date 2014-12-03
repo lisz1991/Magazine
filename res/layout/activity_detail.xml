@@ -21,11 +21,11 @@
 
         <Button
             android:id="@+id/activity_ditail_button"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_margin="10dp"
-            android:background="@drawable/start_read_selector"
-            android:text="立即阅读" />
+            android:layout_gravity="center"
+            android:background="@drawable/start_read_selector" />
     </LinearLayout>
 
     <ScrollView
@@ -130,9 +130,9 @@
                 android:id="@+id/activity_ditail_book_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:textSize="18sp" />
         </LinearLayout>
     </ScrollView>
