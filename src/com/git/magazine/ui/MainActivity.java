@@ -6,12 +6,15 @@ import java.util.List;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView.LayoutParams;
 import android.widget.AdapterView;
@@ -55,6 +58,7 @@ public class MainActivity extends BaseActivity implements
 
 	private ArrayList<Type> groupList;
 	private ArrayList<List<Column>> childList;
+	private TextView title;
 	private static final String TAG = "MainActivity";
 
 	@Override
@@ -78,7 +82,21 @@ public class MainActivity extends BaseActivity implements
 				.findViewById(R.id.expandablelist);
 		stickyLayout = (StickyLayout) menu.findViewById(R.id.sticky_layout);
 
-		getActionBar().setTitle(getString(R.string.app_first));
+		View actionBarView = LayoutInflater.from(this).inflate(R.layout.actionbar_layout, null);
+		ActionBar actionBar = getActionBar();
+		actionBar.setCustomView(actionBarView);  
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);  
+//		actionBar.setDisplayShowCustomEnabled(true); 
+		title = (TextView) actionBarView.findViewById(R.id.title_name);
+		title.setText(R.string.app_first);
+		actionBarView.findViewById(R.id.magazineDesc).setVisibility(View.GONE);
+		actionBarView.findViewById(R.id.back_button).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				menu.openMenu();
+			}
+		});
 	}
 
 	@Override
@@ -173,7 +191,7 @@ public class MainActivity extends BaseActivity implements
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			Intent intent = new Intent(MainActivity.this,
-					DetailActivity.class);
+					ReadActivity.class);
 			intent.putExtra("ZaZhi", mZaZhis.get(position));
 			startActivity(intent);
 		}
@@ -275,6 +293,7 @@ public class MainActivity extends BaseActivity implements
 	@Override
 	public boolean onChildClick(ExpandableListView arg0, View arg1, int arg2,
 			int arg3, long arg4) {
+		menu.closeMenu();
 		TextView urlView = (TextView) arg1.findViewById(R.id.child_url);
 		TextView nameView = (TextView) arg1.findViewById(R.id.child_name);
 		String url = (String) urlView.getText();
@@ -283,7 +302,7 @@ public class MainActivity extends BaseActivity implements
 		String[] params = { Constance.SERVER + url,
 				String.valueOf(AsyncHttp.PAGE_MAIN) };
 		AsyncHttp.getInstance(this, mHandelr).execute(params);
-		getActionBar().setTitle(name);
+		title.setText(name);
 		return false;
 	}
 }

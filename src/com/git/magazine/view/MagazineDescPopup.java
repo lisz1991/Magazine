@@ -2,6 +2,7 @@ package com.git.magazine.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Display;
 import android.view.Gravity;
@@ -47,7 +48,8 @@ public class MagazineDescPopup extends PopupWindow{
 		this.setFocusable(true);
 		this.setOutsideTouchable(true);
 		// 实例化一个ColorDrawable颜色为半透明
-		ColorDrawable dw = new ColorDrawable(0000000000);
+		int color = Color.argb(127, 255, 255, 255);  
+		ColorDrawable dw = new ColorDrawable(color);
 		// 点back键和其他地方使其消失,设置了这个才能触发OnDismisslistener ，设置其他控件变化等操作
 		this.setBackgroundDrawable(dw);
 
