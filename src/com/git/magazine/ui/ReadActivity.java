@@ -72,7 +72,7 @@ public class ReadActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				magazionDescpop.showPopupWindow(magazineDesc, magazineInfo);
+				magazionDescpop.showPopupWindow(getActionBar().getCustomView(), magazineInfo);
 			}
 		});
 		actionBarView.findViewById(R.id.back_button).setOnClickListener(

@@ -1,11 +1,9 @@
 package com.git.magazine.view;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -43,7 +41,7 @@ public class MagazineDescPopup extends PopupWindow{
 		// 设置MagazineDescPopup弹出窗体的宽
 		this.setWidth(LayoutParams.WRAP_CONTENT);
 		// 设置MagazineDescPopup弹出窗体的高
-		this.setHeight(LayoutParams.WRAP_CONTENT);
+		this.setHeight(LayoutParams.FILL_PARENT);
 		// 设置MagazineDescPopup弹出窗体可点击
 		this.setFocusable(true);
 		this.setOutsideTouchable(true);
@@ -58,9 +56,9 @@ public class MagazineDescPopup extends PopupWindow{
 	}
 
 	private void initDescView() {
-		posterImage = (ImageView) contentView
-				.findViewById(R.id.activity_ditail_image);
-		posterImage.setOnTouchListener(new ImageZoomListener());
+//		posterImage = (ImageView) contentView
+//				.findViewById(R.id.activity_ditail_image);
+//		posterImage.setOnTouchListener(new ImageZoomListener());
 		detailName = (TextView) contentView
 				.findViewById(R.id.activity_ditail_book_name);
 		detailCurrent = (TextView) contentView
@@ -88,7 +86,7 @@ public class MagazineDescPopup extends PopupWindow{
 			detailUpdate.setText(magazineInfo.detailUpdate);
 			detailTotal.setText(magazineInfo.detailTotal);
 			detailPrice.setText(magazineInfo.detailPrice);
-			ImageLoader.getInstance().displayImage(magazineInfo.urlImage, posterImage);
+//			ImageLoader.getInstance().displayImage(magazineInfo.urlImage, posterImage);
 			this.showAsDropDown(view);
 		}else{
 			this.dismiss();

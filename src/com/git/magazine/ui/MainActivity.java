@@ -22,7 +22,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ExpandableListView;
 import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +29,6 @@ import com.git.magazine.R;
 import com.git.magazine.Async.AsyncHttp;
 import com.git.magazine.adapter.MainGridviewAdapter;
 import com.git.magazine.adapter.MainLeftExpandAdapter;
-import com.git.magazine.adapter.MainTypeListAdapter;
 import com.git.magazine.constance.Constance;
 import com.git.magazine.entity.Column;
 import com.git.magazine.entity.MagazineInfo;
@@ -82,7 +80,7 @@ public class MainActivity extends BaseActivity implements
 				.findViewById(R.id.expandablelist);
 		stickyLayout = (StickyLayout) menu.findViewById(R.id.sticky_layout);
 
-		View actionBarView = LayoutInflater.from(this).inflate(R.layout.actionbar_layout, null);
+		View actionBarView = LayoutInflater.from(this).inflate(R.layout.actionbar_main, null);
 		ActionBar actionBar = getActionBar();
 		actionBar.setCustomView(actionBarView);  
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);  
@@ -94,7 +92,7 @@ public class MainActivity extends BaseActivity implements
 			
 			@Override
 			public void onClick(View v) {
-				menu.openMenu();
+				menu.toggle();
 			}
 		});
 	}

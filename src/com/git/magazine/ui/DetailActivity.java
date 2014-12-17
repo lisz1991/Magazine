@@ -42,9 +42,8 @@ public class DetailActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void initView() {
-		image = (ImageView) findViewById(R.id.activity_ditail_image);
-		image.setOnTouchListener(new ImageZoomListener());
-		read = (Button) findViewById(R.id.activity_ditail_button);
+//		image = (ImageView) findViewById(R.id.activity_ditail_image);
+//		image.setOnTouchListener(new ImageZoomListener());
 		read.setOnClickListener(this);
 		detailName = (TextView) findViewById(R.id.activity_ditail_book_name);
 		detailCurrent = (TextView) findViewById(R.id.activity_ditail_book_current);
@@ -71,13 +70,6 @@ public class DetailActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.activity_ditail_button:
-			Intent intent = new Intent(DetailActivity.this, ReadActivity.class);
-			intent.putExtra("ZaZhi", zaZhi);
-			startActivity(intent);
-			break;
-		}
 	}
 
 	public void getInfo(Document doc) {
